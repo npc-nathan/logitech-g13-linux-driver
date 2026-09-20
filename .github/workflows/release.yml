@@ -26,7 +26,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: dtolnay/rust-toolchain@stable
+      # Pinned rather than `stable`, on purpose: the bytes a compiler produces are part of what is released, so a
+      # release should not change because Rust updated itself that week. Bump this deliberately, with a release.
+      # `ci` still tests against stable and against 1.85, so neither is neglected.
+      - uses: dtolnay/rust-toolchain@1.98.1
 
       - name: the version, and whether a tag agrees with it
         id: version

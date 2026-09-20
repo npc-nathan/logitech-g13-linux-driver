@@ -19,8 +19,8 @@ NAME=g13
 cd "$ROOT"
 echo "Building $NAME $VERSION."
 
-# Same source, same bytes, whoever builds it. Two things otherwise leak the builder into the packages: the path of
-# the dependency sources - every crate records its own file beside its panics, so ~/.cargo/registry/... ends up in
+# Same source, same bytes, whoever builds it. Three things otherwise leak the builder into the packages: the path
+# of# the dependency sources - every crate records its own file beside its panics, so ~/.cargo/registry/... ends up in
 # the binary - and the timestamps the archives carry. Both are neutralised here rather than in the caller's
 # environment, so a build from this tree is the same whoever runs it, and a release can be rebuilt and compared
 # byte for byte. `--remap-path-prefix` keeps any flags the caller already had.
@@ -29,6 +29,22 @@ export RUSTFLAGS
 # The commit's own date, so the value is stable per commit rather than per build.
 SOURCE_DATE_EPOCH="${SOURCE_DATE_EPOCH:-$(git -C "$ROOT" log -1 --format=%ct 2>/dev/null || echo 0)}"
 export SOURCE_DATE_EPOCH
+
+# The dependency build scripts that ask the machine questions, given the same empty answer everywhere. x11-dl writes
+# the libdir of sixteen X11 libraries into its generated code when it finds them; with no answer it opens them by
+# name at run time instead, which is where they are on any normal system. libusb1-sys finds no libusb here and so
+# compiles its own in, as the vendored feature asks. Without this line the two machines produce different binaries.
+PACKAGING_NO_PKGCONFIG="$ROOT/target/pkgconfig-none"
+mkdir -p "$PACKAGING_NO_PKGCONFIG"
+export PKG_CONFIG_LIBDIR="$PACKAGING_NO_PKGCONFIG"
+export PKG_CONFIG_PATH=""
+
+# Those two build scripts do not declare the pkg-config variables as inputs, so cargo will happily reuse answers they
+# gave on an earlier run - which would quietly undo the line above on a machine that has built this tree before.
+# Asking for just those two to be rebuilt every time is what makes the guarantee hold for the reproducer as well as
+# for a fresh checkout.
+cargo clean -p x11-dl >/dev/null 2>&1 || true
+cargo clean -p libusb1-sys >/dev/null 2>&1 || true
 cargo build --release
 
 rm -rf "$OUT"
