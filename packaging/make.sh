@@ -12,6 +12,7 @@ HERE=$(cd "$(dirname "$0")" && pwd)
 ROOT=$(cd "$HERE/.." && pwd)
 OUT="${1:-$ROOT/target/package}"
 VERSION=$(grep -m1 '^version' "$ROOT/Cargo.toml" | cut -d'"' -f2)
+HOMEPAGE=$(grep -m1 '^repository' "$ROOT/Cargo.toml" | cut -d'"' -f2)
 VERSION=${VERSION:-0.1.0}
 NAME=g13
 
@@ -68,13 +69,14 @@ Version: $VERSION
 Section: utils
 Priority: optional
 Architecture: $(dpkg --print-architecture 2>/dev/null || echo amd64)
-Maintainer: Nathan Calow (NPC-IT)
+Maintainer: Nathan Calow (NPC-IT) <nathan@npc-it.co.uk>
 Description: Logitech G13 gameboard driver
  Reads the pad, sends keys through its own virtual keyboard, draws on the LCD,
  and renders applets of your own. The configuration window is g13 gui; the
  driver is g13 run or the g13-rs user service.
 Installed-Size: $SIZE
 License: MIT OR Apache-2.0
+Homepage: $HOMEPAGE
 Depends: libusb-1.0-0, libudev1, libcap2
 EOF
 cat > "$DEB/DEBIAN/postinst" <<'EOF'

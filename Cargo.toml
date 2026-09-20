@@ -20,7 +20,7 @@ edition = "2024"
 rust-version = "1.85"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/npc-nathan/logitech-g13-linux-driver"
-authors = ["Nathan Calow (NPC-IT)"]
+authors = ["Nathan Calow (NPC-IT) <nathan@npc-it.co.uk>"]
 
 [workspace.dependencies]
 # device: MIT
