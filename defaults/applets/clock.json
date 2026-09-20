@@ -1,0 +1,30 @@
+{
+  "name": "clock",
+  "sources": {
+    "time": "time",
+    "day": "day",
+    "date": "date",
+    "uptime": "uptime"
+  },
+  "widgets": [
+    {
+      "type": "text",
+      "x": 4,
+      "y": 4,
+      "format": "{time}",
+      "size": 2
+    },
+    {
+      "type": "text",
+      "x": 4,
+      "y": 20,
+      "format": "{day} {date}"
+    },
+    {
+      "type": "text",
+      "x": 4,
+      "y": 30,
+      "format": "up {uptime}"
+    }
+  ]
+}

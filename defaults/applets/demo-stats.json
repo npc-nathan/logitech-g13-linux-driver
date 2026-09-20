@@ -1,0 +1,136 @@
+{
+  "border": true,
+  "interval": 1,
+  "name": "demo-stats",
+  "screens": [
+    {
+      "title": "screen 1",
+      "widgets": [
+        {
+          "format": "CPU:",
+          "type": "text",
+          "x": 3,
+          "y": 2
+        },
+        {
+          "h": 9,
+          "max": 100,
+          "source": "cpu",
+          "type": "bar",
+          "w": 70,
+          "x": 28,
+          "y": 2
+        },
+        {
+          "align": "right",
+          "format": "{cpu:.0f}%",
+          "type": "text",
+          "x": 127,
+          "y": 2
+        },
+        {
+          "align": "right",
+          "format": "{cputemp:.0f}c",
+          "type": "text",
+          "x": 157,
+          "y": 2
+        },
+        {
+          "format": "MEM:",
+          "type": "text",
+          "x": 3,
+          "y": 12
+        },
+        {
+          "h": 9,
+          "max": 100,
+          "source": "memory",
+          "type": "bar",
+          "w": 70,
+          "x": 28,
+          "y": 12
+        },
+        {
+          "align": "right",
+          "format": "{memory:.0f}%",
+          "type": "text",
+          "x": 127,
+          "y": 12
+        },
+        {
+          "align": "right",
+          "format": "{memtemp:.0f}c",
+          "type": "text",
+          "x": 157,
+          "y": 12
+        },
+        {
+          "h": 9,
+          "max": 100,
+          "source": "gpu",
+          "type": "bar",
+          "w": 70,
+          "x": 28,
+          "y": 22
+        },
+        {
+          "align": "left",
+          "format": "GPU:",
+          "type": "text",
+          "x": 3,
+          "y": 22
+        },
+        {
+          "align": "right",
+          "format": "{gpu:.0f}%",
+          "type": "text",
+          "x": 127,
+          "y": 22
+        },
+        {
+          "align": "right",
+          "format": "{gputemp:.0f}c",
+          "type": "text",
+          "x": 157,
+          "y": 22
+        },
+        {
+          "type": "line",
+          "w": 158,
+          "x": 1,
+          "y": 32
+        },
+        {
+          "align": "left",
+          "format": "{day} {date} up: {uptime}",
+          "type": "text",
+          "x": 3,
+          "y": 34
+        }
+      ]
+    },
+    {
+      "title": "screen 2",
+      "widgets": [
+        {
+          "type": "list",
+          "w": 100,
+          "x": 3,
+          "y": 8
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "cpu": "cpu",
+    "cputemp": "cmd:for d in /sys/class/hwmon/hwmon*; do [ $(cat $d/name) = k10temp ] && awk '{printf \"%.0f\", $1/1000}' $d/temp1_input; done; :",
+    "date": "date",
+    "day": "day",
+    "gpu": "cmd:nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits",
+    "gputemp": "cmd:nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits",
+    "memory": "memory",
+    "memtemp": "cmd:for d in /sys/class/hwmon/hwmon*; do [ \"$(cat $d/name 2>/dev/null)\" = jc42 ] && cat $d/temp1_input; done | awk '{s+=$1; n++} END {if (n) printf \"%.0f\", s/n/1000}'",
+    "uptime": "uptime"
+  },
+  "title": "STATS"
+}

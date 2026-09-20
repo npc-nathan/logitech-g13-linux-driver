@@ -1,0 +1,24 @@
+{
+  "name": "mail",
+  "title": "MAIL",
+  "interval": 5,
+  "border": true,
+  "sources": {
+    "unread": "imap:mail/INBOX#unread",
+    "line": "imap:mail/INBOX#line"
+  },
+  "widgets": [
+    {
+      "type": "text",
+      "x": 3,
+      "y": 12,
+      "format": "{unread} unread"
+    },
+    {
+      "type": "text",
+      "x": 3,
+      "y": 22,
+      "format": "{line}"
+    }
+  ]
+}

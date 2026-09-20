@@ -1,0 +1,16 @@
+{
+  "active": "applet:demo-stats",
+  "cycle": false,
+  "cycle_seconds": 10,
+  "enabled": [
+    "clock",
+    "media",
+    "pad",
+    "applet:weather",
+    "applet:gpu",
+    "applet:temps",
+    "applet:docker",
+    "applet:demo-stats",
+    "applet:media-controller"
+  ]
+}

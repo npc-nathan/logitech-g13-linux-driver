@@ -1,0 +1,31 @@
+{
+  "name": "docker",
+  "title": "DOCKER",
+  "interval": 2,
+  "border": true,
+  "sources": {
+    "up": "cmd:docker ps -q | wc -l",
+    "bad": "cmd:docker ps --filter health=unhealthy -q | wc -l",
+    "images": "cmd:docker images -q | wc -l"
+  },
+  "widgets": [
+    {
+      "type": "text",
+      "x": 3,
+      "y": 12,
+      "format": "up {up}"
+    },
+    {
+      "type": "text",
+      "x": 80,
+      "y": 12,
+      "format": "unhealthy {bad}"
+    },
+    {
+      "type": "text",
+      "x": 3,
+      "y": 22,
+      "format": "images {images}"
+    }
+  ]
+}

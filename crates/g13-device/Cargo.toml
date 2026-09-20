@@ -1,0 +1,16 @@
+[package]
+name = "g13-device"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+g13-proto = { path = "../g13-proto" }
+rusb.workspace = true
+evdev.workspace = true
+thiserror.workspace = true
+
+[lints]
+workspace = true

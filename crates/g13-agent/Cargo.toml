@@ -1,0 +1,22 @@
+[package]
+name = "g13-agent"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+g13-proto = { path = "../g13-proto" }
+g13-device = { path = "../g13-device" }
+g13-config = { path = "../g13-config" }
+g13-screen = { path = "../g13-screen" }
+g13-applets = { path = "../g13-applets" }
+g13-sources = { path = "../g13-sources" }
+# the one place a file is written so a reader never sees half of it
+g13-files = { path = "../g13-files" }
+g13-values = { path = "../g13-values" }
+serde_json = { workspace = true }
+
+[lints]
+workspace = true

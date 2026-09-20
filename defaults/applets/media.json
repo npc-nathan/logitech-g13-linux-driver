@@ -1,0 +1,42 @@
+{
+  "name": "media",
+  "sources": {
+    "media_title": "media_title",
+    "media_artist": "media_artist",
+    "media_position": "media_position",
+    "media_duration": "media_duration",
+    "media_percent": "media_percent"
+  },
+  "widgets": [
+    {
+      "type": "text",
+      "x": 4,
+      "y": 4,
+      "w": 150,
+      "format": "{media_title}",
+      "scroll": true,
+      "scroll_width": 22,
+      "scroll_speed": 30
+    },
+    {
+      "type": "text",
+      "x": 4,
+      "y": 16,
+      "format": "{media_artist}"
+    },
+    {
+      "type": "bar",
+      "x": 4,
+      "y": 28,
+      "w": 150,
+      "h": 6,
+      "source": "media_percent"
+    },
+    {
+      "type": "text",
+      "x": 4,
+      "y": 36,
+      "format": "{media_position} / {media_duration}"
+    }
+  ]
+}

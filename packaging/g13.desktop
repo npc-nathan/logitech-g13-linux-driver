@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=G13 Configuration
+GenericName=G13 Gameboard
+Comment=Keys, profiles, and the screen with its applets
+Exec=g13 gui
+Icon=input-gaming
+Terminal=false
+Categories=Settings;HardwareSettings;
+Keywords=G13;Logitech;keypad;gameboard;gamepad;lcd;
+StartupNotify=true

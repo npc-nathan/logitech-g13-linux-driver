@@ -1,0 +1,19 @@
+[package]
+name = "g13-sources"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+# the one place a file is written so a reader never sees half of it
+g13-files = { path = "../g13-files" }
+# the value type, which has no business dragging the network into a config reader
+g13-values = { path = "../g13-values" }
+ureq = { workspace = true }
+regex = { workspace = true }
+serde_json = { workspace = true }
+
+[lints]
+workspace = true

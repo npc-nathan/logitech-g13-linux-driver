@@ -1,0 +1,17 @@
+[package]
+name = "g13-config"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+serde_json.workspace = true
+# the condition language and the value it reads
+g13-values = { path = "../g13-values" }
+# the one place a file is written so a reader never sees half of it
+g13-files = { path = "../g13-files" }
+
+[lints]
+workspace = true

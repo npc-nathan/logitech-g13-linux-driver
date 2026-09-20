@@ -1,0 +1,25 @@
+{
+  "name": "ci",
+  "title": "CI",
+  "interval": 5,
+  "border": true,
+  "sources": {
+    "state": "http:github/repos/npc-nathan/g13/actions/runs?per_page=1#workflow_runs.0.conclusion",
+    "workflow": "http:github/repos/npc-nathan/g13/actions/runs?per_page=1#workflow_runs.0.name",
+    "when": "http:github/repos/npc-nathan/g13/actions/runs?per_page=1#workflow_runs.0.updated_at"
+  },
+  "widgets": [
+    {
+      "type": "text",
+      "x": 3,
+      "y": 12,
+      "format": "last {state}"
+    },
+    {
+      "type": "text",
+      "x": 3,
+      "y": 22,
+      "format": "{workflow}"
+    }
+  ]
+}

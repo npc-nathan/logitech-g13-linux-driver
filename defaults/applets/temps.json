@@ -1,0 +1,25 @@
+{
+  "name": "temps",
+  "title": "TEMPS",
+  "interval": 2,
+  "border": true,
+  "sources": {
+    "cpu": "cmd:for d in /sys/class/hwmon/hwmon*; do [ $(cat $d/name) = k10temp ] && awk '{printf \"%.0f\", $1/1000}' $d/temp1_input; done; :",
+    "ram": "cmd:for d in /sys/class/hwmon/hwmon*; do [ $(cat $d/name) = jc42 ] && awk '{printf \"%.0f \", $1/1000}' $d/temp1_input; done; :",
+    "ccd": "cmd:for d in /sys/class/hwmon/hwmon*; do [ $(cat $d/name) = k10temp ] && awk '{printf \"%.0f\", $1/1000}' $d/temp3_input; done; :"
+  },
+  "widgets": [
+    {
+      "type": "text",
+      "x": 3,
+      "y": 12,
+      "format": "cpu {cpu}C  ccd {ccd}C"
+    },
+    {
+      "type": "text",
+      "x": 3,
+      "y": 22,
+      "format": "ram {ram}C"
+    }
+  ]
+}

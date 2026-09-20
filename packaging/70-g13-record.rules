@@ -1,0 +1,44 @@
+# g13 — read access to the input devices a binding can be set from.
+#
+# Both `g13 record` and the window's "press to set" work by reading the real input devices, which are
+# root:input with no ACL by default. Without this every device answers "Permission denied", the tool listens
+# to nothing, and a press that was made is reported as a press that never happened.
+#
+# uaccess grants access only to the user at the seat: no group membership, no permanent grant, nothing to
+# other users, and nothing at all while nobody is logged in.
+#
+# Keyboards, mice and gamepads, because a binding can send a key, a mouse button or a gamepad button and all
+# three have to be capturable. Nothing else is touched: tablets, touchscreens, sensors and audio devices are
+# left exactly as they were.
+#
+# Install:   sudo cp packaging/70-g13-record.rules /etc/udev/rules.d/
+#            sudo udevadm control --reload && sudo udevadm trigger --subsystem-match=input
+# Remove:    sudo rm /etc/udev/rules.d/70-g13-record.rules && sudo udevadm control --reload
+# The pad itself is claimed through /dev/hidraw, not through the input subsystem: the driver talks to the
+# device, it does not read it as a keyboard. Without this line the device node is root:root with no access
+# and `g13 run` fails with "Access denied" - which is what happens on a machine that has just rebooted, when
+# nothing is holding the permissions open any more.
+#
+# Narrow on purpose: this grants the pad and nothing else. Every other hidraw device on the machine - mice,
+# keyboards, whatever else is plugged in - is left exactly as it was.
+# The pad itself, as a USB device. This is the line that matters most: the driver claims the device through
+# libusb, which opens /dev/bus/usb/BBB/DDD - not the hidraw node below. Without it that node is root:root and
+# the driver stops at "Access denied", which is what a machine does the first time it reboots with no rule for
+# it. uaccess rather than a mode, so the pad is writable by the person at the seat and not by everyone.
+ACTION=="remove", GOTO="g13_record_end"
+SUBSYSTEM=="usb", ATTR{idVendor}=="046d", ATTR{idProduct}=="c21c", TAG+="uaccess"
+
+# uinput is where the driver's own keyboard and mouse come from. The node is created at boot by the kernel
+# module, before anything for this package has run, which is what static_node is for.
+KERNEL=="uinput", SUBSYSTEM=="misc", OPTIONS+="static_node=uinput", TAG+="uaccess"
+
+# The devices the driver creates, so reading their events back - a game that watches the pad's own keys, or
+# `g13 record` listening for what a control sends - does not need root.
+SUBSYSTEM=="input", ATTRS{name}=="G13*", TAG+="uaccess"
+
+# And the pad through hidraw, for anything that reads it as a raw device rather than claiming it.
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c21c", TAG+="uaccess"
+SUBSYSTEM=="input", ENV{ID_INPUT_KEYBOARD}=="1", TAG+="uaccess"
+SUBSYSTEM=="input", ENV{ID_INPUT_MOUSE}=="1", TAG+="uaccess"
+SUBSYSTEM=="input", ENV{ID_INPUT_JOYSTICK}=="1", TAG+="uaccess"
+LABEL="g13_record_end"

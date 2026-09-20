@@ -1,0 +1,83 @@
+{
+  "border": true,
+  "follow": {
+    "seconds": 20
+  },
+  "interval": 0.2,
+  "name": "cp2077-hud",
+  "screens": [
+    {
+      "title": "screen 1",
+      "widgets": [
+        {
+          "count": 11,
+          "h": 5,
+          "max": 100,
+          "source": "health",
+          "type": "segments",
+          "w": 56,
+          "x": 3,
+          "y": 2
+        },
+        {
+          "format": "{ammo}/{ammo_total}",
+          "type": "text",
+          "x": 99,
+          "y": 2
+        },
+        {
+          "align": "right",
+          "format": "LVL {level:>2}",
+          "type": "text",
+          "y": 2
+        },
+        {
+          "format": "{objective}",
+          "scroll": true,
+          "scroll_speed": 3,
+          "scroll_width": 25,
+          "type": "text",
+          "x": 3,
+          "y": 20
+        },
+        {
+          "r": 6,
+          "source": "pin_relative",
+          "type": "arrow",
+          "x": 10,
+          "y": 34
+        },
+        {
+          "format": "{route}",
+          "scroll": true,
+          "scroll_speed": 2,
+          "scroll_width": 22,
+          "type": "text",
+          "x": 23,
+          "y": 32
+        }
+      ]
+    },
+    {
+      "title": "screen 2",
+      "widgets": []
+    }
+  ],
+  "sources": {
+    "ammo": "json:{GAME}/bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud/hud.json#ammo",
+    "ammo_total": "json:{GAME}/bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud/hud.json#ammo_total",
+    "district": "json:{GAME}/bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud/hud.json#district",
+    "handling": "json:{GAME}/bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud/hud.json#mod",
+    "heading": "json:{GAME}/bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud/hud.json#heading",
+    "health": "json:{GAME}/bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud/hud.json#health",
+    "level": "json:{GAME}/bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud/hud.json#level",
+    "near": "json:{GAME}/bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud/hud.json#near",
+    "objective": "json:{GAME}/bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud/hud.json#objective",
+    "pin_distance": "json:{GAME}/bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud/hud.json#pin_distance",
+    "pin_relative": "json:{GAME}/bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud/hud.json#pin_relative",
+    "quest": "json:{GAME}/bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud/hud.json#quest",
+    "route": "json:{GAME}/bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud/hud.json#route",
+    "weapon": "json:{GAME}/bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud/hud.json#weapon"
+  },
+  "title": "NIGHT CITY"
+}

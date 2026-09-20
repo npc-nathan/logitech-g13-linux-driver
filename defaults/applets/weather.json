@@ -1,0 +1,3556 @@
+{
+  "border": true,
+  "interval": 1,
+  "name": "weather",
+  "sources": {
+    "Location": "http:weather/?format=j1#nearest_area.0.areaName.0.value",
+    "desc": "http:weather/?format=j1#current_condition.0.weatherDesc.0.value",
+    "feels": "http:weather/?format=j1#current_condition.0.FeelsLikeC",
+    "humidity": "http:weather/?format=j1#current_condition.0.humidity",
+    "temp": "http:weather/?format=j1#current_condition.0.temp_C",
+    "time": "time",
+    "wind": "http:weather/?format=j1#current_condition.0.windspeedKmph"
+  },
+  "title": "WEATHER",
+  "widgets": [
+    {
+      "align": "left",
+      "format": "{Location}",
+      "type": "text",
+      "x": 3,
+      "y": 2
+    },
+    {
+      "format": "{desc} {temp}C",
+      "type": "text",
+      "x": 3,
+      "y": 12
+    },
+    {
+      "format": "feels {feels}C",
+      "type": "text",
+      "x": 3,
+      "y": 22
+    },
+    {
+      "format": "wind {wind} hum {humidity}%",
+      "type": "text",
+      "x": 3,
+      "y": 32
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Sunny",
+              "value": "desc"
+            }
+          ]
+        }
+      },
+      "name": "weather.sunny.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Clear",
+              "value": "desc"
+            }
+          ]
+        }
+      },
+      "name": "weather.sunny.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Partly Cloudy",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.partlycloudy.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Partly Cloudy",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.partlycloudy.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Partly Cloudy",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.partlycloudy.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Cloudy",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.cloudy.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Cloudy",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.cloudy.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Cloudy",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.cloudy.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Overcast",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.overcast.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Overcast",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.overcast.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Overcast",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.overcast.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Mist",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.mist.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Mist",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.mist.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy rain nearby",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchyrainnearby.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Mist",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.mist.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy rain nearby",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchyrainnearby.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy rain nearby",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchyrainnearby.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy snow nearby",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchysnownearby.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy snow nearby",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchysnownearby.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy snow nearby",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchysnownearby.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy sleet nearby",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchysleetnearby.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy sleet nearby",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchysleetnearby.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy sleet nearby",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchysleetnearby.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy freezing drizzle nearby",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchyfreezingdrizzlenearby.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy freezing drizzle nearby",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchyfreezingdrizzlenearby.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy freezing drizzle nearby",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchyfreezingdrizzlenearby.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Thundery outbreaks in nearby",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.thunderyoutbreaksinnearby.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Thundery outbreaks in nearby",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.thunderyoutbreaksinnearby.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Thundery outbreaks in nearby",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.thunderyoutbreaksinnearby.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Blowing snow",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.blowingsnow.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Blowing snow",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.blowingsnow.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Blowing snow",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.blowingsnow.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Blizzard",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.blizzard.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Blizzard",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.blizzard.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Blizzard",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.blizzard.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Fog",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.fog.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Fog",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.fog.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Fog",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.fog.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Freezing fog",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.freezingfog.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Freezing fog",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.freezingfog.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Freezing fog",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.freezingfog.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy light drizzle",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchylightdrizzle.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy light drizzle",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchylightdrizzle.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy light drizzle",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchylightdrizzle.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light drizzle",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightdrizzle.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light drizzle",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightdrizzle.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light drizzle",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightdrizzle.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Freezing drizzle",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.freezingdrizzle.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Freezing drizzle",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.freezingdrizzle.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Freezing drizzle",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.freezingdrizzle.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Heavy freezing drizzle",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.heavyfreezingdrizzle.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Heavy freezing drizzle",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.heavyfreezingdrizzle.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Heavy freezing drizzle",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.heavyfreezingdrizzle.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy light rain",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchylightrain.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy light rain",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchylightrain.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy light rain",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchylightrain.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light rain",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightrain.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light rain",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightrain.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light rain",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightrain.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate rain at times",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderaterainattimes.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate rain at times",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderaterainattimes.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate rain at times",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderaterainattimes.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate rain",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderaterain.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate rain",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderaterain.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate rain",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderaterain.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Heavy rain at times",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.heavyrainattimes.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Heavy rain at times",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.heavyrainattimes.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Heavy rain at times",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.heavyrainattimes.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Heavy rain",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.heavyrain.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Heavy rain",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.heavyrain.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Heavy rain",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.heavyrain.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light freezing rain",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightfreezingrain.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light freezing rain",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightfreezingrain.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light freezing rain",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightfreezingrain.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy freezing rain",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavyfreezingrain.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy freezing rain",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavyfreezingrain.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy freezing rain",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavyfreezingrain.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light sleet",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightsleet.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light sleet",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightsleet.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light sleet",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightsleet.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy sleet",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavysleet.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy sleet",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavysleet.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy sleet",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavysleet.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy light snow",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchylightsnow.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy light snow",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchylightsnow.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy light snow",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchylightsnow.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light snow",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightsnow.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light snow",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightsnow.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light snow",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightsnow.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy moderate snow",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchymoderatesnow.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy moderate snow",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchymoderatesnow.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy moderate snow",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchymoderatesnow.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate snow",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderatesnow.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate snow",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderatesnow.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate snow",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderatesnow.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy heavy snow",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchyheavysnow.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy heavy snow",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchyheavysnow.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy heavy snow",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchyheavysnow.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Heavy snow",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.heavysnow.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Heavy snow",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.heavysnow.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Heavy snow",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.heavysnow.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Ice pellets",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.icepellets.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Ice pellets",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.icepellets.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Ice pellets",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.icepellets.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light rain shower",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightrainshower.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light rain shower",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightrainshower.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light rain shower",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightrainshower.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy rain shower",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavyrainshower.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy rain shower",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavyrainshower.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy rain shower",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavyrainshower.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Torrential rain shower",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.torrentialrainshower.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Torrential rain shower",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.torrentialrainshower.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Torrential rain shower",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.torrentialrainshower.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light sleet showers",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightsleetshowers.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light sleet showers",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightsleetshowers.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light sleet showers",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightsleetshowers.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy sleet showers",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavysleetshowers.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy sleet showers",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavysleetshowers.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy sleet showers",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavysleetshowers.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light snow showers",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightsnowshowers.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light snow showers",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightsnowshowers.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light snow showers",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightsnowshowers.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy snow showers",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavysnowshowers.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy snow showers",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavysnowshowers.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy snow showers",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavysnowshowers.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light showers of ice pellets",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightshowersoficepellets.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light showers of ice pellets",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightshowersoficepellets.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Light showers of ice pellets",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.lightshowersoficepellets.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy showers of ice pellets",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavyshowersoficepellets.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy showers of ice pellets",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavyshowersoficepellets.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy showers of ice pellets",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavyshowersoficepellets.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy light rain in area with thunder",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchylightraininareawiththunder.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy light rain in area with thunder",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchylightraininareawiththunder.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy light rain in area with thunder",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchylightraininareawiththunder.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy rain in area with thunder",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavyraininareawiththunder.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy rain in area with thunder",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavyraininareawiththunder.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy rain in area with thunder",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavyraininareawiththunder.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy light snow in area with thunder",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchylightsnowinareawiththunder.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy light snow in area with thunder",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchylightsnowinareawiththunder.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Patchy light snow in area with thunder",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.patchylightsnowinareawiththunder.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy snow in area with thunder",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "6:00",
+              "value": "time"
+            },
+            {
+              "op": "<",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavysnowinareawiththunder.day",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy snow in area with thunder",
+              "value": "desc"
+            },
+            {
+              "op": "<",
+              "text": "6:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavysnowinareawiththunder.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "all": [
+            {
+              "op": "==",
+              "text": "Moderate or heavy snow in area with thunder",
+              "value": "desc"
+            },
+            {
+              "op": ">=",
+              "text": "19:00",
+              "value": "time"
+            }
+          ]
+        }
+      },
+      "name": "weather.moderateorheavysnowinareawiththunder.night",
+      "type": "bitmap",
+      "x": 127,
+      "y": 2
+    }
+  ]
+}

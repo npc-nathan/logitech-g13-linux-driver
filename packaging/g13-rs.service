@@ -1,0 +1,19 @@
+[Unit]
+Description=G13 driver (Rust)  -  reads the pad, sends the bound keys
+Documentation=https://github.com/npc-nathan/logitech-g13-linux-driver/blob/main/docs/README.md
+# The prototype and this driver cannot both hold the pad, so starting either stops the other.
+Conflicts=g13.service
+After=graphical-session.target
+
+[Service]
+Type=simple
+# A path an install creates, not one into a development checkout: this unit ships, and %h/Projects/g13 exists on
+# exactly one machine in the world.
+ExecStart=%h/.local/bin/g13 run
+Restart=on-failure
+RestartSec=2
+# Ctrl-C in a terminal and `systemctl --user stop` should both shut it down cleanly
+KillSignal=SIGINT
+
+[Install]
+WantedBy=default.target

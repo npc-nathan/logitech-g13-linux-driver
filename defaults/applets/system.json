@@ -1,0 +1,45 @@
+{
+  "name": "system",
+  "sources": {
+    "cpu": "cpu",
+    "memory": "memory",
+    "load": "load",
+    "host": "host"
+  },
+  "widgets": [
+    {
+      "type": "text",
+      "x": 2,
+      "y": 1,
+      "format": "cpu {cpu}%"
+    },
+    {
+      "type": "bar",
+      "x": 2,
+      "y": 9,
+      "w": 156,
+      "h": 6,
+      "source": "cpu"
+    },
+    {
+      "type": "text",
+      "x": 2,
+      "y": 17,
+      "format": "mem {memory}%"
+    },
+    {
+      "type": "bar",
+      "x": 2,
+      "y": 25,
+      "w": 156,
+      "h": 6,
+      "source": "memory"
+    },
+    {
+      "type": "text",
+      "x": 2,
+      "y": 34,
+      "format": "load {load}  {host}"
+    }
+  ]
+}

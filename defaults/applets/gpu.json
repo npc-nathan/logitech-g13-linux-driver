@@ -1,0 +1,41 @@
+{
+  "name": "gpu",
+  "title": "GPU",
+  "interval": 1,
+  "border": true,
+  "sources": {
+    "util": "cmd:nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits",
+    "temp": "cmd:nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits",
+    "mem": "cmd:nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits"
+  },
+  "widgets": [
+    {
+      "type": "text",
+      "x": 3,
+      "y": 12,
+      "format": "GPU:"
+    },
+    {
+      "type": "bar",
+      "x": 30,
+      "y": 12,
+      "w": 100,
+      "h": 9,
+      "source": "util",
+      "max": 100
+    },
+    {
+      "type": "text",
+      "x": 157,
+      "y": 12,
+      "align": "right",
+      "format": "{util}%"
+    },
+    {
+      "type": "text",
+      "x": 3,
+      "y": 22,
+      "format": "{temp}C  vram {mem}M"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "github": {
+    "timeout": 3.0,
+    "url": "https://api.github.com",
+    "token": null
+  },
+  "weather": {
+    "insecure": true,
+    "url": "https://wttr.in",
+    "token": null
+  }
+}

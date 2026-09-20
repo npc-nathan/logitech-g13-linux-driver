@@ -1,0 +1,30 @@
+[package]
+name = "g13-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "g13"
+path = "src/main.rs"
+
+[dependencies]
+g13-proto = { path = "../g13-proto" }
+g13-device = { path = "../g13-device" }
+g13-screen = { path = "../g13-screen" }
+g13-applets = { path = "../g13-applets" }
+g13-gui = { path = "../g13-gui" }
+g13-sources = { path = "../g13-sources" }
+g13-config = { path = "../g13-config" }
+g13-agent = { path = "../g13-agent" }
+# the one place a file is written so a reader never sees half of it
+g13-files = { path = "../g13-files" }
+g13-values = { path = "../g13-values" }
+
+# for one thing: the default SIGPIPE handling, so a closed pipe ends the command instead of panicking
+libc = "0.2"
+
+[lints]
+workspace = true

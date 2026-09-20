@@ -1,0 +1,69 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/g13-proto",
+    "crates/g13-values",
+    "crates/g13-files",
+    "crates/g13-device",
+    "crates/g13-config",
+    "crates/g13-screen",
+    "crates/g13-sources",
+    "crates/g13-applets",
+    "crates/g13-agent",
+    "crates/g13-cli",
+    "crates/g13-gui",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/npc-nathan/logitech-g13-linux-driver"
+authors = ["Nathan"]
+
+[workspace.dependencies]
+# device: MIT
+rusb = "0.9"
+# device: Apache-2.0 OR MIT   (take MIT if ever needed under a GPL-2 licence)
+nusb = "0.2"
+# device: Apache-2.0 OR MIT
+evdev = "0.13"
+# device: MIT
+nix = { version = "0.31", features = ["ioctl", "fs"] }
+# device: MIT OR Apache-2.0
+thiserror = "2"
+# everywhere: MIT OR Apache-2.0
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# sources: MIT
+regex = "1"
+ureq = "3"
+# sources: MIT OR Apache-2.0
+tungstenite = "0.30"
+# sources: Apache-2.0
+rumqttc = "0.25"
+# gui: MIT OR Apache-2.0
+eframe = "0.36"
+# gui: MIT   (the file dialog for importing and exporting an applet)
+rfd = "0.17"
+egui = "0.36"
+
+[workspace.lints.rust]
+# `unsafe` is allowed twice in this tree, and each of those carries its own allowance and its reason: nothing
+# else may add one quietly.
+unsafe_code = "deny"
+# Every public item says what it is for. The prose in this tree is how the next person decides whether a thing
+# belongs where it is - a bare `pub fn` is a question left open for them.
+missing_docs = "deny"
+
+[workspace.lints.clippy]
+# a library that panics on its own input is a library that takes the pad down with it: every failure is a
+# value returned to whoever asked, because the driver's loop is the one place a panic cannot be recovered from.
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+# a library reports through its channel, never by printing. The command line crate is the voice of the
+# program and says so in its own root.
+print_stdout = "deny"
+print_stderr = "deny"

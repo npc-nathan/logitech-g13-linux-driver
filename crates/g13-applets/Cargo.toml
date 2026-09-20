@@ -1,0 +1,19 @@
+[package]
+name = "g13-applets"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+serde_json = { workspace = true }
+g13-screen = { path = "../g13-screen" }
+g13-sources = { path = "../g13-sources" }
+# the one place a file is written so a reader never sees half of it
+g13-files = { path = "../g13-files" }
+# an alert's `when` is a condition, and there is one condition language: the one the macros speak
+g13-values = { path = "../g13-values" }
+
+[lints]
+workspace = true

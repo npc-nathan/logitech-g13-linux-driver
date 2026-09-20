@@ -1,0 +1,28 @@
+{
+  "name": "pad",
+  "sources": {
+    "profile": "profile",
+    "button_mode": "button_mode",
+    "last_key": "last_key"
+  },
+  "widgets": [
+    {
+      "type": "text",
+      "x": 4,
+      "y": 4,
+      "format": "PROFILE {profile}"
+    },
+    {
+      "type": "text",
+      "x": 4,
+      "y": 16,
+      "format": "MODE {button_mode}"
+    },
+    {
+      "type": "text",
+      "x": 4,
+      "y": 30,
+      "format": "LAST {last_key}"
+    }
+  ]
+}

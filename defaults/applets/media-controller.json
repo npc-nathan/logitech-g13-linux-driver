@@ -1,0 +1,81 @@
+{
+  "font": "runes",
+  "interval": 1,
+  "name": "media-controller",
+  "sources": {
+    "media_album": "media_album",
+    "media_artist": "media_artist",
+    "media_duration": "media_duration",
+    "media_percent": "media_percent",
+    "media_position": "media_position",
+    "media_title": "media_title"
+  },
+  "theme": "audio",
+  "title": "media-controller",
+  "widgets": [
+    {
+      "command": "cmd:playerctl play-pause",
+      "name": "Play",
+      "type": "bitmap",
+      "x": 66,
+      "y": 34
+    },
+    {
+      "command": "cmd:playerctl stop",
+      "name": "Stop",
+      "type": "bitmap",
+      "x": 80,
+      "y": 34
+    },
+    {
+      "align": "left",
+      "format": "{media_title}",
+      "scroll": true,
+      "scroll_speed": 20,
+      "scroll_width": 34,
+      "type": "text",
+      "y": 0
+    },
+    {
+      "align": "left",
+      "format": "{media_artist}",
+      "type": "text",
+      "y": 10
+    },
+    {
+      "align": "left",
+      "format": "{media_album}",
+      "type": "text",
+      "y": 20
+    },
+    {
+      "h": 1,
+      "max": 100,
+      "source": "media_percent",
+      "type": "bar",
+      "w": 159,
+      "x": 0,
+      "y": 30
+    },
+    {
+      "align": "right",
+      "format": "{media_position} / {media_duration}",
+      "type": "text",
+      "y": 20
+    },
+    {
+      "alert": {
+        "look": "show",
+        "when": {
+          "op": ">",
+          "to": 50.0,
+          "value": "media_percent"
+        }
+      },
+      "name": "loading",
+      "type": "bitmap",
+      "x": 3,
+      "y": 34
+    }
+  ]
+}
