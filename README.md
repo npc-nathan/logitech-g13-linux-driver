@@ -104,3 +104,16 @@ build cannot parse is reported rather than half-loaded, and it never rewrites a 
 MIT OR Apache-2.0  -  see [LICENSE-MIT](LICENSE-MIT) and [LICENSE-APACHE](LICENSE-APACHE). This is a clean-room
 rewrite written from observed behaviour and public protocol documentation, not a translation of the GPL-2 project
 it replaces; see [PROVENANCE.md](PROVENANCE.md).
+
+## The three pieces
+
+This driver is one of three repositories that go together:
+
+| repository | what it is |
+|---|---|
+| **[logitech-g13-linux-driver](https://github.com/npc-nathan/logitech-g13-linux-driver)** | **this one** - the driver: it reads the pad, sends keys, draws on the 160x43 screen, and configures it from a window |
+| [logitech-g13-applets](https://github.com/npc-nathan/logitech-g13-applets) | extra screens for the pad, the ones that need something else installed to be worth drawing |
+| [g13-hud](https://github.com/npc-nathan/g13-hud) | Cyberpunk 2077's health, objective and district, written out by a Cyber Engine Tweaks mod for this driver to draw |
+
+Each one stands on its own: the driver is complete without either of the others, and an applet with no data behind
+it simply draws nothing.
