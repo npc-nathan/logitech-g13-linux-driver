@@ -21,19 +21,23 @@ applet from `applets/` to `~/.config/g13/applets/cp2077-hud.json` with its `{GAM
 replaced by wherever the game actually is, and adds that applet to `visuals.json` so the pad can
 walk to it. Nothing outside those places is touched, and re-running it is how to update.
 
-**From the published archive** - `./packaging.sh` builds `dist/g13-hud-<version>.zip` in the layout CET loads, with
-**no scripts in it**: mod sites' automated scanners quarantine archives that carry executables or shell scripts, and
-a `.sh` beside the Lua was enough to do it.
+**From the published archive** - `./packaging.sh` builds `dist/g13-hud-<version>.zip`, and that archive holds **one
+file**: the Lua, at the path CET loads from.
 
-Copy the `bin` folder from inside it into your game folder (the one holding `Cyberpunk2077.exe`) and let it merge -
-that is the whole install, and it puts the file at the same path `install.sh` does.
+    bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud/init.lua
 
-On Linux the pad also needs the screen, which is two short steps: copy `linux/applets/cp2077-hud.json` from the
-archive into `~/.config/g13/applets/`, then open the g13 window, go to the **Menu** tab and tick **on the pad** for
-`cp2077-hud`. That second step is the same one any applet needs - the window writes the rotation for you.
+Nothing else goes in it, because a mod manager deploys everything an archive contains into the game folder - a README
+beside the Lua would land in the player's game directory as a stray file. The archive's paths are game-root relative,
+which is what Amethyst, Vortex and a manual drag-and-drop all expect, and it is the shape the single-file CET mods on
+Nexus already have. To install by hand: copy that `bin` folder into your game folder and let it merge.
 
-`install.sh` in this repository does both of those in one command, if you would rather run a script than copy two
-files. It is kept out of the published archive on purpose.
+Two other things, both of which live on this side of the pair rather than in the archive:
+
+- **the pad screen** (`applets/cp2077-hud.json`) - `install.sh` copies it into `~/.config/g13/applets/` and the
+  driver's window puts it on the pad from its **Menu** tab. It is the driver's configuration, not the game mod's.
+- **`install.sh` itself** - kept out of the archive on purpose: mod sites' scanners quarantine archives carrying a
+  shell script, and the first upload was quarantined for exactly that.
+
 
 Written and tested against **Cyberpunk 2077 3.0.80.51928** with **CET v1.37.1** (1.37 or newer is required).
 
