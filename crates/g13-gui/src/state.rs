@@ -5110,18 +5110,35 @@ mod tests {
 
     #[test]
     fn the_visuals_offered_are_the_built_ins_and_the_applets_that_exist() {
-        let window = Window::load(&g13_config::config_dir());
+        // A fixture, not this machine. It read the real configuration directory once, so it passed only where
+        // applets happened to be installed - and its first run in CI, on a clean machine, is what said so.
+        let dir = std::env::temp_dir().join("g13-visuals-offered");
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(dir.join("applets")).unwrap();
+        std::fs::write(dir.join("applets/weather.json"), "{}").unwrap();
+        std::fs::write(dir.join("applets/gpu.json"), "{}").unwrap();
+        // an applet's pictures are not a screen of their own
+        std::fs::write(dir.join("applets/weather.bitmaps.json"), "{}").unwrap();
+
+        let window = Window::load(&dir);
         let offered = window.available_visuals();
+
         for built_in in ["clock", "system", "pad", "media"] {
             assert!(
                 offered.contains(&built_in.to_string()),
                 "{built_in} is missing"
             );
         }
-        // this machine has applets, and they should be offered by the name the driver uses
+        // and the applet files in that directory, by the name the driver uses
+        for applet in ["applet:gpu", "applet:weather"] {
+            assert!(
+                offered.contains(&applet.to_string()),
+                "{applet} is not offered: {offered:?}"
+            );
+        }
         assert!(
-            offered.iter().any(|name| name.starts_with("applet:")),
-            "no applets were offered: {offered:?}"
+            !offered.iter().any(|name| name.contains("bitmaps")),
+            "a bitmaps sidecar was offered as a screen: {offered:?}"
         );
     }
 
