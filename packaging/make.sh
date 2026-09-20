@@ -68,7 +68,7 @@ Version: $VERSION
 Section: utils
 Priority: optional
 Architecture: $(dpkg --print-architecture 2>/dev/null || echo amd64)
-Maintainer: Nathan
+Maintainer: Nathan Calow (NPC-IT)
 Description: Logitech G13 gameboard driver
  Reads the pad, sends keys through its own virtual keyboard, draws on the LCD,
  and renders applets of your own. The configuration window is g13 gui; the
