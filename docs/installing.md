@@ -28,8 +28,9 @@ It puts five things on the machine, and nothing in your home:
 | `/usr/share/applications/g13.desktop` | **G13 Configuration** in the applications menu |
 | `/usr/share/g13/defaults/` | what a first run copies into your config: **12 applets** and their pictures, **4 fonts**, a theme, the **16 named macros**, **4 binding sets**, and the rotation |
 
-It declares three dependencies  -  `libusb-1.0-0`, `libudev1`, `libcap2`  -  which are the three libraries the binary
-links. Every normal desktop already has them; on a bare machine apt fetches them.
+It declares two dependencies  -  `libudev1` and `libcap2`  -  which are the two libraries the binary links. The USB
+library it speaks to the pad through is built into the binary rather than borrowed from the machine, so there is no
+version of it to have installed. Every normal desktop already has both; on a bare machine apt fetches them.
 
 **What the rule grants, exactly.** Four of its lines are about the pad and the driver's own devices: the pad as a USB
 device, `uinput` for the keyboard and mouse it creates, the devices it creates, and the pad through `hidraw`. The other
@@ -91,8 +92,9 @@ sudo udevadm control --reload-rules && sudo udevadm trigger
 cargo build --release -p g13-cli
 ```
 
-That leaves `target/release/g13`. It needs the same three libraries at build and run time, the udev rule above, and
-a session that can see the device  -  nothing else. The window and the driver are the same binary; `g13 run` drives
+That leaves `target/release/g13`. It needs the same two libraries at build and run time, and a C compiler, because
+the USB library is compiled in rather than borrowed. Then the udev rule above, a session that can see the device,
+and nothing else. The window and the driver are the same binary; `g13 run` drives
 the pad and `g13 gui` configures it, and they are separate processes on purpose: a window that writes files must
 never be in the way of the loop that reads your keys.
 

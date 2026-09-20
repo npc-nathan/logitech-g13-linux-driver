@@ -71,10 +71,26 @@ grep -q '^ExecStart=/usr/bin/g13 run$' "$DEB/usr/lib/systemd/user/g13-rs.service
 [ -f "$ROOT/README.md" ] && install -m 0644 "$ROOT/README.md" "$DEB/usr/share/doc/$NAME/README.md"
 [ -f "$ROOT/LICENSE-MIT" ] && install -m 0644 "$ROOT/LICENSE-MIT" "$DEB/usr/share/doc/$NAME/LICENSE-MIT"
 [ -f "$ROOT/LICENSE-APACHE" ] && install -m 0644 "$ROOT/LICENSE-APACHE" "$DEB/usr/share/doc/$NAME/LICENSE-APACHE"
-# The three the binary links against, read off the binary rather than remembered. dpkg takes no comments in a
-# control file, so the reason lives here: these are the libraries `ldd` reports, and without them the package
-# installs and then cannot start.
+# The libraries the binary asks for, read off the binary rather than remembered. dpkg takes no comments in a
+# control file, so the mapping from a library's name to the package that provides it lives here - and a library
+# this script does not know about stops the build, rather than shipping a package that installs and then cannot
+# start.
 SIZE=$(du -sk "$DEB" | cut -f1)
+DEPS=""
+for soname in $(readelf -d "$ROOT/target/release/g13" | sed -n 's/.*(NEEDED).*\[\(.*\)\]/\1/p'); do
+    case "$soname" in
+        libusb-1.0.so.0) PKG=libusb-1.0-0 ;;
+        libudev.so.1) PKG=libudev1 ;;
+        libcap.so.2) PKG=libcap2 ;;
+        libc.so.6 | libm.so.6 | libgcc_s.so.1 | libdl.so.2 | libpthread.so.0 | ld-linux-x86-64.so.2) PKG=libc6 ;;
+        *)
+            echo "packaging: $soname is not mapped to a package - add it beside the others, or the result installs and then cannot start." >&2
+            exit 1
+            ;;
+    esac
+    case ",$DEPS," in *",$PKG,"*) ;; *) DEPS="${DEPS:+$DEPS, }$PKG" ;; esac
+done
+[ -n "$DEPS" ] || { echo "packaging: the binary names no libraries at all, which cannot be right" >&2; exit 1; }
 cat > "$DEB/DEBIAN/control" <<EOF
 Package: $NAME
 Version: $VERSION
@@ -89,7 +105,7 @@ Description: Logitech G13 gameboard driver
 Installed-Size: $SIZE
 License: MIT OR Apache-2.0
 Homepage: $HOMEPAGE
-Depends: libusb-1.0-0, libudev1, libcap2
+Depends: $DEPS
 EOF
 cat > "$DEB/DEBIAN/postinst" <<'EOF'
 #!/bin/sh

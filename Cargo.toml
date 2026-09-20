@@ -24,7 +24,9 @@ authors = ["Nathan Calow (NPC-IT) <nathan@npc-it.co.uk>"]
 
 [workspace.dependencies]
 # device: MIT
-rusb = "0.9"
+# Built with its own libusb rather than the machine's: the binary then carries the USB library it was tested
+# against, there is no version of it to have installed, and a build here and a build in CI are the same bytes.
+rusb = { version = "0.9", features = ["vendored"] }
 # device: Apache-2.0 OR MIT   (take MIT if ever needed under a GPL-2 licence)
 nusb = "0.2"
 # device: Apache-2.0 OR MIT
