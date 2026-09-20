@@ -21,6 +21,13 @@ applet from `applets/` to `~/.config/g13/applets/cp2077-hud.json` with its `{GAM
 replaced by wherever the game actually is, and adds that applet to `visuals.json` so the pad can
 walk to it. Nothing outside those places is touched, and re-running it is how to update.
 
+**From the published archive** - `./packaging.sh` builds `dist/g13-hud-<version>.zip` in the layout CET loads.
+Copy the `bin` folder from inside it into your game folder (the one holding `Cyberpunk2077.exe`) and let it merge,
+which is the same file at the same path. On Linux, run `linux/install.sh` from that archive as well so the pad
+screen is put in place too; the script is a convenience, and everything it does can be done by hand.
+
+Written and tested against **Cyberpunk 2077 3.0.80.51928** with **CET v1.37.1** (1.37 or newer is required).
+
 Needs CET 1.37+ (written against 1.37.1) and `g13` (the driver) installed. If CET is not in the
 game yet, the installer says so and stops.
 
