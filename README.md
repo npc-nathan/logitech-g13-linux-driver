@@ -42,6 +42,39 @@ g13 macro play ID [--as C]  play it now, as if control C fired it
 g13 version             the version this binary is
 ```
 
+## What it looks like
+
+**On the pad.** The screen is **160x43 pixels in one bit**. These are the real screens  -  drawn by the same code the
+driver draws with (`g13 lcd --visual`, `g13 applet preview`)  -  so a picture here cannot drift from what the pad
+shows. The backlight colour is a profile setting (`color=R,G,B`); these are white so the detail is legible.
+
+|  |  |
+|---|---|
+| ![the clock](docs/images/clock.png) | ![the media player](docs/images/media.png) |
+| **clock**  -  the time, the date and the day | **media**  -  what is playing, and how far in |
+| ![the weather](docs/images/weather.png) | ![the machine's numbers](docs/images/gpu.png) |
+| **weather**  -  an applet, with its own bitmap for the sky | **gpu**  -  an applet reading the machine |
+| ![a game's HUD](docs/images/cp2077-hud.png) | ![the pad's own state](docs/images/pad.png) |
+| **a game's own HUD**  -  Cyberpunk 2077, through the mod in [`cet-mod/`](cet-mod/) | **the pad's own state**  -  the profile, the stick's mode, the last control |
+
+The rest of the set  -  `system`, `temps`, `docker`, `media-controller`, `demo-stats`  -  is in
+[`docs/images/`](docs/images/).
+
+**In a terminal.** The command line is not a fallback: everything the window does is done here too, and the two
+write the same files.
+
+```console
+$ g13 applet list
+applets in ~/.config/g13/applets:
+  ci               2 widget(s), 3 source(s), every 5s
+  clock            3 widget(s), 4 source(s), every 1s
+  cp2077-hud       6 widget(s), 7 source(s), every 0.2s
+  demo-stats       14 widget(s), 9 source(s), every 1s, 2 screens
+  docker           3 widget(s), 3 source(s), every 2s
+  gpu              4 widget(s), 3 source(s), every 1s
+  mail             2 widget(s), 2 source(s), every 5s
+```
+
 ## What it will not be
 
 It will not read your existing setup any differently. `~/.config/g13/` keeps its formats, applets keep their
