@@ -166,6 +166,10 @@ screen is lit.
   exist would replace the whole map with nothing.
 - **`g13 profile`** prints the active one; **`g13 profile 2`** switches.
 
+The screen says which one is in force, so a profile switch is visible rather than remembered:
+
+![the pad's own state](images/pad.png)
+
 ## The stick
 
 The stick is two axes with a calibration of their own, and it has four modes. Everything is on the window's

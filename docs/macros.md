@@ -63,6 +63,8 @@ Things worth knowing:
   steps file stays as it was.
 - **delete the graph** goes back to plain steps.
 
+![the Macros tab, with a graph open](images/window-macros.png)
+
 ## The graph
 
 ### The picture

@@ -163,3 +163,8 @@ the words `ok` are: `note` is a fact about the moment, and `warn` is something w
 necessarily broken.
 
 Anything that does not say `ok` is described in [troubleshooting](troubleshooting.md), by symptom.
+
+|  |  |
+|---|---|
+| ![the clock](images/clock.png) | ![the pad's own state](images/pad.png) |
+| **something is on the screen**  -  the clock, once the driver is running | **and the driver is drawing**  -  the profile, the stick's mode, the last control |

@@ -77,6 +77,10 @@ a line of 25 characters is 150 pixels and fits; 27 does not.
 pixel do not blend, the later one wins. `g13 applet check <name>` reports a widget that would be drawn *over*
 another one, because that is a screen where something silently disappears.
 
+A screen made of them, on the pad:
+
+![the weather applet](images/weather.png)
+
 ## What a widget writes in its format
 
 A format string is text with `{name}` in it, where `name` is a source:
@@ -337,6 +341,8 @@ Press **L3** and the border moves Start/Pause → Previous → Next → Stop →
   container you can see. A list whose rows have not been read yet has nothing to be on, so it is skipped.
 * One list per screen is walked  -  its rows  -  and any other list is drawn but not walked.
 
+![the media controller applet](images/media-controller.png)
+
 ### More than one screen in one applet
 
 An applet can hold several screens. Each has its own title and its own widgets; the sources stay the applet's,
@@ -375,6 +381,8 @@ way the window and the pad's menu number them, and `--screen` left out means the
 applet:NAME --screen 2` puts one on the pad itself, and `g13 applet check NAME` draws every screen rather than
 only the first.
 
+![the demo-stats applet](images/demo-stats.png)
+
 ### An applet a program feeds: `follow`
 
 Some applets are written from outside  -  a game, a script, anything that can write a file. The applet says so:
@@ -411,6 +419,8 @@ program that has claimed it. `g13 screen auto` gives it back, and `g13 screen <n
 is kept in `~/.config/g13/screen-owner`, and the driver publishes it as the value `screen_owner`, so an applet or a
 macro can read who has it. **The driver does not act on it yet** - it draws its own visuals whatever the file says,
 so a claim is recorded rather than obeyed. What takes the screen today is the `follow` rule above.
+
+![the Cyberpunk 2077 HUD applet](images/cp2077-hud.png)
 
 ### Pictures: bitmaps, and there is only one way to draw one
 
@@ -479,6 +489,8 @@ keys, the profile, the stick  -  are the catalogue. It is a documented list, not
 current reading beside it.
 
 That is what makes `{cpu}` work with no source of your own, and it is also what a macro's question can name.
+
+![the gpu applet](images/gpu.png)
 
 ## Checking one
 

@@ -69,6 +69,10 @@ and then press the key. `g13 bindings` shows the whole map as the driver is appl
 **What to check:** press `G7` on the pad. The key you chose should be typed wherever your cursor is  -  try it in a
 text editor, so you can see the letters arrive.
 
+The Bindings tab is where it happens: the control on the left, what it sends on the right.
+
+![the Bindings tab](images/window-bindings.png)
+
 ## 5. Put something on the pad's screen
 
 In the window, **Screen** tab. The list on the left is what the driver can show: the built-in `clock`, `system`,
@@ -87,6 +91,11 @@ g13 lcd
 
 **What to check:** the pad's screen changes as you click, and pressing **LR** (the round button) on the pad
 moves to the next of the ticked ones. `g13 lcd` with no arguments prints what is on it now.
+
+|  |  |
+|---|---|
+| ![the clock](images/clock.png) | ![the weather](images/weather.png) |
+| the built-in **clock** | **weather**, an applet with a bitmap for the sky |
 
 ## 6. Record a macro on the pad
 

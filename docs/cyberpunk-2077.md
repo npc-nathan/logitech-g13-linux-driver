@@ -43,6 +43,8 @@ The pad then walks to it with **LR**, the same way it walks to any other screen.
 while the game is running; with the game closed they stay where they were left, because the file is
 the only thing the two halves share.
 
+![the game's own numbers on the pad](images/cp2077-hud.png)
+
 ## Take it away
 
 ```bash

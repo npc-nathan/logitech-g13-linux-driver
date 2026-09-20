@@ -6,6 +6,10 @@ section says what to click or what to type, and every command in it exists and r
 **New here?** Read [installing.md](installing.md) if `g13` is not on your machine yet, then [getting-started.md](getting-started.md). That one is in order, from "is it installed" to
 "something is on the pad's screen".
 
+![a Logitech G13 on a desk, its screen lit](images/pad-on-desk.jpg)
+
+*The pad this is for: a 160x43 screen, twenty-two G keys, four L keys, three M keys, a thumbstick, and one wheel.*
+
 ## The documents
 
 | document | what it covers |

@@ -34,6 +34,8 @@ where they are written as you change them instead of behind a save button:
 The screens that used to be built in  -  `clock`, `system`, `pad`, `media`  -  are ordinary applet files, so every one
 of those controls works on them too.
 
+![the Menu tab](images/window-menu.png)
+
 ## Endpoints
 
 The hosts your applets and macros may talk to, from `~/.config/g13/endpoints.json`. An applet never carries a
@@ -62,6 +64,8 @@ that name it  -  which is what makes it fixable rather than merely reported.
 
 *This tab is shared by everything. An applet's own sources  -  `cmd:`, `file:`, built-in names  -  are on the
 Applets tab.*
+
+![the Endpoints tab](images/window-endpoints.png)
 
 ## Controls (now the right column of Bindings)
 
@@ -215,6 +219,8 @@ wrong with it is the thing worth seeing.
 `"command": "screen:playlist"` for you, so a screen is picked rather than remembered. A single-screen applet is
 offered nothing, because there is nowhere to go.
 
+![the Applets tab](images/window-applets.png)
+
 ### Giving a widget an alert
 
 An alert makes one widget react while something is true  -  the CPU over 80, a track playing, a profile being active.
@@ -269,6 +275,8 @@ the shortcut most people reach for first, and this tab is where a theme is looke
 A theme with a mistake in it is listed with the reason, and an applet naming a theme that cannot be read says so in
 that applet's own problems.
 
+![the Themes tab](images/window-themes.png)
+
 ## Values
 
 Every value this build publishes, what it means, and who provides it  -  as two columns, like the other tabs: the
@@ -279,6 +287,8 @@ it, e.g. `{cpu}` in a widget's format, or a question about `cpu` in a macro.
 
 `g13 values --catalogue` prints the same list in a terminal, and `g13 values` prints what the running driver is
 reporting right now.
+
+![the Values tab](images/window-values.png)
 
 ## Macros
 
@@ -291,6 +301,8 @@ use, so **show the N empty one(s)** is off until you ask for it.
 recording or a hand-built graph can follow.
 
 This tab has its own document: [macros.md](macros.md).
+
+![the Macros tab](images/window-macros.png)
 
 ## Bindings
 
@@ -310,3 +322,5 @@ What each control does, for the profile you pick at the top.
   select profiles 1, 2 and 3, MR records a macro, and LR shows the next screen, unless the file says otherwise.
 
 The action syntax in full, and the bit map: [bindings.md](bindings.md).
+
+![the Bindings tab](images/window-bindings.png)

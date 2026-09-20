@@ -20,6 +20,8 @@ Every control has a name, and that name is what your bindings file and the windo
 
 The bit each one sets is in [bindings.md](bindings.md); nothing else in this build needs it.
 
+![the pad, its keys and its screen](images/pad-on-desk.jpg)
+
 ## Pressing things, before you change anything
 
 A control with no line of its own in the profile's bindings file does what the pad has always done by itself, and
@@ -71,6 +73,11 @@ the window's **Menu** tab is where you tick which ones the pad walks and how oft
 - **`g13 lcd`**  -  what is on the pad right now, as text in your terminal.
 - **`g13 lcd --visual applet:weather`**  -  put a named screen on it.
 - **`g13 applet list`**  -  the applets installed, what each one reads, and how often.
+
+|  |  |
+|---|---|
+| ![the clock](images/clock.png) | ![the media player](images/media.png) |
+| **clock** and **system** are built in | **media** follows whatever is playing |
 
 ## Recording a macro on the pad
 

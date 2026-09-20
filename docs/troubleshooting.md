@@ -65,6 +65,10 @@ sudo udevadm control --reload && sudo udevadm trigger
 - Is it an applet that draws nothing? `g13 applet preview <name>` draws it as text at your desk, and
   `g13 applet check <name>` says which source gave nothing and what would be drawn over what.
 
+What it should be showing, so a blank screen has something to be compared with:
+
+![the pad's own state on the screen](images/pad.png)
+
 ## The pad's screen stops changing, or LR seems to do nothing
 
 One screen in the rotation that this build cannot draw is enough to look like a broken button  -  asking for "next"
