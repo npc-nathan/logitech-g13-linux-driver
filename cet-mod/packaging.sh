@@ -1,42 +1,70 @@
 #!/bin/sh
-# Build the archive the mod is published as.
+# Build the archives the mod is published as.
 #
-#   ./packaging.sh              writes dist/g13-hud-<version>.zip
+#   ./packaging.sh              writes dist/g13-hud-<version>.zip and dist/g13-hud-<version>-linux.zip
 #
-# The layout is the one Cyber Engine Tweaks loads: the Lua goes where CET looks for mods, so the archive can be
-# dropped into a game folder and merge. The Linux half rides along under linux/ - the pad screen and the installer
-# that puts both halves in place - because a Windows user only needs the bin/ folder and a Linux user needs the rest.
+# The main archive is the mod and nothing else: the Lua where Cyber Engine Tweaks loads it, and the README. No
+# scripts, no executables, nothing for an automated scanner to quarantine - which is what happened when the Linux
+# installer travelled inside it. It is also the only file Windows, Steam and GOG users need: they copy the bin folder
+# in and they are done.
 #
-# The zip is written deterministically: entries in sorted order with a fixed timestamp, so the same tree always
-# produces the same archive and a download can be checked against a rebuild.
+# The Linux half rides in its own archive, as an optional file: the pad screen, and the installer that puts both
+# halves in place. That script is stored without the executable bit - it is a text file that happens to be valid sh -
+# so it is run as `sh install.sh`, and there is no "executable" in the archive for a scanner to flag.
+#
+# Both are written deterministically: entries in sorted order with a fixed timestamp, so the same tree always
+# produces the same archives and a download can be checked against a rebuild.
 set -eu
 HERE=$(cd "$(dirname "$0")" && pwd)
 VERSION=$(sed -n 's/^local VERSION = "\(.*\)"/\1/p' "$HERE/init.lua" | head -1)
 [ -n "$VERSION" ] || { echo "packaging: no VERSION in init.lua" >&2; exit 1; }
 
 OUT="$HERE/dist"
-NAME="g13-hud-$VERSION.zip"
-STAGE="$OUT/stage"
 MODS="bin/x64/plugins/cyber_engine_tweaks/mods/g13-hud"
+rm -rf "$OUT/stage-main" "$OUT/stage-linux"
 
-rm -rf "$STAGE"
-mkdir -p "$STAGE/$MODS" "$STAGE/linux/applets"
-install -m 0644 "$HERE/init.lua" "$STAGE/$MODS/init.lua"
-install -m 0644 "$HERE/README.md" "$STAGE/README.md"
-install -m 0755 "$HERE/install.sh" "$STAGE/linux/install.sh"
-install -m 0644 "$HERE/applets/cp2077-hud.json" "$STAGE/linux/applets/cp2077-hud.json"
+# ---- the mod: pure data, the file everyone downloads
+mkdir -p "$OUT/stage-main/$MODS"
+install -m 0644 "$HERE/init.lua" "$OUT/stage-main/$MODS/init.lua"
+install -m 0644 "$HERE/README.md" "$OUT/stage-main/README.md"
 
-python3 - "$STAGE" "$OUT/$NAME" <<'PY'
+# ---- the Linux half: the pad screen, and the installer, as an optional file
+mkdir -p "$OUT/stage-linux/linux/applets"
+install -m 0644 "$HERE/install.sh" "$OUT/stage-linux/linux/install.sh"
+install -m 0644 "$HERE/applets/cp2077-hud.json" "$OUT/stage-linux/linux/applets/cp2077-hud.json"
+cat > "$OUT/stage-linux/linux/README.md" <<'TXT'
+# g13-hud - the Linux half
+
+The main archive is the mod. This one is for Linux, where the pad also has to be told about the new screen: it
+carries the installer, which puts the HUD's screen on the G13 and adds it to the rotation.
+
+    sh install.sh                            # or: sh install.sh "/path/to/Cyberpunk 2077"
+    sh install.sh --remove                   # takes the screen and the applet away again
+
+It copies the same `init.lua` to the same place as the manual install - so if you have already copied the `bin`
+folder in, running this only adds the pad screen. Nothing else is touched, and re-running it is how to update.
+
+The leading `sh` is not a typo: the script is stored as a plain text file, deliberately, so the archive contains
+nothing marked executable.
+
+Needs the `g13` driver, on Linux, with Cyber Engine Tweaks already installed in the game:
+https://github.com/npc-nathan/logitech-g13-linux-driver
+TXT
+
+python3 - "$OUT" "$VERSION" <<'PY'
 import pathlib, sys, zipfile
-stage, out = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])
-with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
-    for path in sorted(stage.rglob("*")):
-        if path.is_file():
-            info = zipfile.ZipInfo(path.relative_to(stage).as_posix(), date_time=(1980, 1, 1, 0, 0, 0))
-            info.external_attr = (0o755 if path.suffix == ".sh" else 0o644) << 16
-            info.compress_type = zipfile.ZIP_DEFLATED
-            z.writestr(info, path.read_bytes())
+out = pathlib.Path(sys.argv[1]); version = sys.argv[2]
+for stage, name in ((out / "stage-main", f"g13-hud-{version}.zip"),
+                    (out / "stage-linux", f"g13-hud-{version}-linux.zip")):
+    target = out / name
+    with zipfile.ZipFile(target, "w", zipfile.ZIP_DEFLATED) as z:
+        for path in sorted(stage.rglob("*")):
+            if path.is_file():
+                info = zipfile.ZipInfo(path.relative_to(stage).as_posix(), date_time=(1980, 1, 1, 0, 0, 0))
+                info.external_attr = 0o644 << 16          # never executable, in either archive
+                info.compress_type = zipfile.ZIP_DEFLATED
+                z.writestr(info, path.read_bytes())
+    print(f"  {target}  ({target.stat().st_size / 1024:.1f} KB)")
 PY
 
-rm -rf "$STAGE"
-echo "  $OUT/$NAME"
+rm -rf "$OUT/stage-main" "$OUT/stage-linux"
