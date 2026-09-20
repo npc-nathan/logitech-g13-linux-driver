@@ -1,0 +1,76 @@
+name: release
+
+# Two ways in, and the difference between them is one word.
+#
+#   pushing a tag        v0.2.0 builds the packages and publishes them as a release
+#   the Actions button   does the same build and leaves it as a downloadable artifact, so the .deb and the
+#                        tarball can be looked at before anything is public
+#
+# Publishing is only ever against the version in Cargo.toml, and a tag that disagrees with it stops the run
+# rather than shipping a package whose filename says something the tag does not.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Publish as a release for the version in Cargo.toml (leave off to just build and check)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: the version, and whether a tag agrees with it
+        id: version
+        run: |
+          version=$(grep -m1 '^version' Cargo.toml | cut -d'"' -f2)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "packaging g13 $version"
+          if [ "$GITHUB_REF_TYPE" = "tag" ] && [ "${GITHUB_REF_NAME#v}" != "$version" ]; then
+            echo "the tag is ${GITHUB_REF_NAME}, but Cargo.toml says $version" >&2
+            exit 1
+          fi
+
+      # The same tests ci runs, in the profile the packages are built in, from the locked dependency set: what
+      # is released is what was tested.
+      - run: cargo test --workspace --release --locked
+
+      - run: ./packaging/make.sh
+
+      - name: the sums
+        working-directory: target/package
+        run: |
+          sha256sum "g13_${{ steps.version.outputs.version }}_amd64.deb" \
+                    "g13-${{ steps.version.outputs.version }}.tar.gz" > SHA256SUMS
+          cat SHA256SUMS
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: g13-${{ steps.version.outputs.version }}
+          path: |
+            target/package/g13_${{ steps.version.outputs.version }}_amd64.deb
+            target/package/g13-${{ steps.version.outputs.version }}.tar.gz
+            target/package/SHA256SUMS
+          if-no-files-found: error
+
+      - name: publish
+        if: github.ref_type == 'tag' || inputs.publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "v${{ steps.version.outputs.version }}" \
+            --target "$GITHUB_SHA" \
+            --title "g13 ${{ steps.version.outputs.version }}" \
+            --generate-notes \
+            --latest \
+            "target/package/g13_${{ steps.version.outputs.version }}_amd64.deb" \
+            "target/package/g13-${{ steps.version.outputs.version }}.tar.gz" \
+            "target/package/SHA256SUMS"
