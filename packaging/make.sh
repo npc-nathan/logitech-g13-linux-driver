@@ -18,6 +18,17 @@ NAME=g13
 
 cd "$ROOT"
 echo "Building $NAME $VERSION."
+
+# Same source, same bytes, whoever builds it. Two things otherwise leak the builder into the packages: the path of
+# the dependency sources - every crate records its own file beside its panics, so ~/.cargo/registry/... ends up in
+# the binary - and the timestamps the archives carry. Both are neutralised here rather than in the caller's
+# environment, so a build from this tree is the same whoever runs it, and a release can be rebuilt and compared
+# byte for byte. `--remap-path-prefix` keeps any flags the caller already had.
+RUSTFLAGS="${RUSTFLAGS:-} --remap-path-prefix=${CARGO_HOME:-$HOME/.cargo}=/cargo --remap-path-prefix=${RUSTUP_HOME:-$HOME/.rustup}=/rustup --remap-path-prefix=$ROOT=/src"
+export RUSTFLAGS
+# The commit's own date, so the value is stable per commit rather than per build.
+SOURCE_DATE_EPOCH="${SOURCE_DATE_EPOCH:-$(git -C "$ROOT" log -1 --format=%ct 2>/dev/null || echo 0)}"
+export SOURCE_DATE_EPOCH
 cargo build --release
 
 rm -rf "$OUT"
@@ -36,7 +47,8 @@ for doc in README.md; do
     [ -f "$ROOT/$doc" ] && install -m 0644 "$ROOT/$doc" "$STAGE/$doc"
 done
 [ -d "$ROOT/docs" ] && cp -r "$ROOT/docs" "$STAGE/docs"
-tar -czf "$OUT/$NAME-$VERSION.tar.gz" -C "$OUT" "$NAME-$VERSION" defaults
+tar --sort=name --mtime="@$SOURCE_DATE_EPOCH" --owner=0 --group=0 --numeric-owner \
+    -cf - -C "$OUT" "$NAME-$VERSION" defaults | gzip -n -9 > "$OUT/$NAME-$VERSION.tar.gz"
 rm -rf "$STAGE" "$OUT/defaults"
 find "$OUT" -maxdepth 1 -name 'defaults' -prune -exec rm -rf {} + 2>/dev/null || true
 echo "  $OUT/$NAME-$VERSION.tar.gz"
