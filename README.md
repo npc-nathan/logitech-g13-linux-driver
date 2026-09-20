@@ -44,9 +44,13 @@ g13 version             the version this binary is
 
 ## What it looks like
 
-**On the pad.** The screen is **160x43 pixels in one bit**. These are the real screens  -  drawn by the same code the
-driver draws with (`g13 lcd --visual`, `g13 applet preview`)  -  so a picture here cannot drift from what the pad
-shows. The backlight colour is a profile setting (`color=R,G,B`); these are white so the detail is legible.
+**The pad.** A 160x43 screen, twenty-two G keys, a thumbstick, and a driver that makes all of it work:
+
+![the pad on a desk, its screen lit](docs/images/pad-on-desk.jpg)
+
+**On its screen.** The screen is **160x43 pixels in one bit**. These are the real screens  -  drawn by the same code
+the driver draws with (`g13 lcd --visual`, `g13 applet preview`)  -  so a picture here cannot drift from what the
+pad shows. The backlight colour is a profile setting (`color=R,G,B`); these are white so the detail is legible.
 
 |  |  |
 |---|---|
@@ -59,6 +63,20 @@ shows. The backlight colour is a profile setting (`color=R,G,B`); these are whit
 
 The rest of the set  -  `system`, `temps`, `docker`, `media-controller`, `demo-stats`  -  is in
 [`docs/images/`](docs/images/).
+
+**In the window.** `g13 gui` edits the same files the driver reads, and a change lands within a second. One design
+across every tab: a list on the left, the selected thing on the right.
+
+|  |  |
+|---|---|
+| ![the bindings tab](docs/images/window-bindings.png) | ![the applets tab](docs/images/window-applets.png) |
+| **Bindings**  -  what each control sends, and the stick's settings beside it | **Applets**  -  a screen's widgets, the inspector, and the field grid |
+| ![the macros tab](docs/images/window-macros.png) | ![the values tab](docs/images/window-values.png) |
+| **Macros**  -  a macro's graph, node by node | **Values**  -  the machine's values, and what each one means |
+| ![the menu tab](docs/images/window-menu.png) | ![the endpoints tab](docs/images/window-endpoints.png) |
+| **Menu**  -  the pad's own menu, level by level | **Endpoints**  -  the endpoints file every applet shares |
+| ![the themes tab](docs/images/window-themes.png) |  |
+| **Themes**  -  themes as files, and the editor for one |  |
 
 **In a terminal.** The command line is not a fallback: everything the window does is done here too, and the two
 write the same files.
