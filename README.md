@@ -59,7 +59,7 @@ pad shows. The backlight colour is a profile setting (`color=R,G,B`); these are 
 | ![the weather](docs/images/weather.png) | ![the machine's numbers](docs/images/gpu.png) |
 | **weather**  -  an applet, with its own bitmap for the sky | **gpu**  -  an applet reading the machine |
 | ![a game's HUD](docs/images/cp2077-hud.png) | ![the pad's own state](docs/images/pad.png) |
-| **a game's own HUD**  -  Cyberpunk 2077, through the mod in [`cet-mod/`](cet-mod/) | **the pad's own state**  -  the profile, the stick's mode, the last control |
+| **a game's own HUD**  -  Cyberpunk 2077, through the mod in [g13-hud](https://github.com/npc-nathan/logitech-g13-hud) | **the pad's own state**  -  the profile, the stick's mode, the last control |
 
 The rest of the set  -  `system`, `temps`, `docker`, `media-controller`, `demo-stats`  -  is in
 [`docs/images/`](docs/images/).

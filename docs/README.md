@@ -21,7 +21,8 @@ section says what to click or what to type, and every command in it exists and r
 | [macros.md](macros.md) | recording a macro on the pad, the node graph, the Macros tab, the file format, the terminal commands |
 | [bindings.md](bindings.md) | the pad's controls, what a control can be bound to, profiles, the stick, the screen colour and the four lights |
 | [applets-and-sources.md](applets-and-sources.md) | applets, the widgets they are made of, and every kind of source, including endpoints |
-| [cyberpunk-2077.md](cyberpunk-2077.md) | the optional game mod that puts Cyberpunk 2077's own numbers on the pad, and how the two halves meet |
+
+The Cyberpunk 2077 half is a separate project and lives in its own repository: [g13-hud](https://github.com/npc-nathan/logitech-g13-hud) is the Cyber Engine Tweaks mod that writes the game's numbers out, and its pad screen is in [logitech-g13-applets](https://github.com/npc-nathan/logitech-g13-applets).
 | [troubleshooting.md](troubleshooting.md) | `g13 doctor`, and the failures that actually happen, by symptom |
 
 ## How the pieces fit
