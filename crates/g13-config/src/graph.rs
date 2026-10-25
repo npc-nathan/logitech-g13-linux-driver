@@ -364,7 +364,7 @@ fn parse_kind(id: &str, kind: &str, raw: &serde_json::Value) -> Result<NodeKind,
                 .get("when")
                 .ok_or_else(|| named("no \"when\"".to_string()))?;
             Ok(NodeKind::If {
-                when: parse_cond(when).map_err(&named)?,
+                when: parse_cond(when).map_err(named)?,
             })
         }
         "repeat" => {
