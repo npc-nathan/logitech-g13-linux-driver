@@ -2695,7 +2695,10 @@ mod tests {
                  {"type": "bar", "x": 0, "y": 0, "w": 20, "h": 5, "source": "", "max": 100},
                  {"type": "text", "x": 0, "y": 8, "format": "no readings here"}]}"#,
         );
-        assert!(names_read(&applet).is_empty(), "an empty source reads nothing");
+        assert!(
+            names_read(&applet).is_empty(),
+            "an empty source reads nothing"
+        );
         assert!(
             values_nothing_provides(&applet, &Values::new()).is_empty(),
             "and nothing is reported missing for it"
