@@ -98,7 +98,10 @@ for soname in $(readelf -d "$ROOT/target/release/g13" | sed -n 's/.*(NEEDED).*\[
         libusb-1.0.so.0) PKG=libusb-1.0-0 ;;
         libudev.so.1) PKG=libudev1 ;;
         libcap.so.2) PKG=libcap2 ;;
-        libc.so.6 | libm.so.6 | libgcc_s.so.1 | libdl.so.2 | libpthread.so.0 | ld-linux-x86-64.so.2) PKG=libc6 ;;
+        libc.so.6 | libm.so.6 | libdl.so.2 | libpthread.so.0 | ld-linux-x86-64.so.2) PKG=libc6 ;;
+        # glibc split libgcc into its own package; mapping it to libc6 gives a .deb that installs and then
+        # cannot start on a minimal system.
+        libgcc_s.so.1) PKG=libgcc-s1 ;;
         *)
             echo "packaging: $soname is not mapped to a package - add it beside the others, or the result installs and then cannot start." >&2
             exit 1
