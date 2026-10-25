@@ -678,6 +678,9 @@ pub fn gather(applet: &Applet, world: &World) -> (Values, Vec<String>) {
 pub fn values_nothing_provides(applet: &Applet, values: &Values) -> Vec<String> {
     names_read(applet)
         .into_iter()
+        // A blank name is not a reading that went missing: nothing could ever provide it, and reporting it
+        // once per draw is how the journal filled with the same line three million times.
+        .filter(|name| !name.trim().is_empty())
         .filter(|name| !values.contains_key(name))
         .collect()
 }
@@ -697,7 +700,16 @@ pub fn names_read(applet: &Applet) -> Vec<String> {
                 Widget::Bar { source, .. }
                 | Widget::Segments { source, .. }
                 | Widget::List { source, .. }
-                | Widget::Arrow { source, .. } => vec![source.clone()],
+                | Widget::Arrow { source, .. } => {
+                    // An empty source names nothing: it is a blank widget, not a reading. Carrying the empty
+                    // string on made `values_nothing_provides` report ` is read by a widget and nothing
+                    // provides it` on every draw - three million identical journal lines on one boot.
+                    if source.trim().is_empty() {
+                        Vec::new()
+                    } else {
+                        vec![source.clone()]
+                    }
+                }
                 Widget::Button { format, .. } => g13_sources::names_in_format(format),
                 _ => Vec::new(),
             };
@@ -2671,6 +2683,23 @@ mod tests {
         );
         // and it comes round: the same clock as the start is the same picture
         assert_eq!(ink_at(0.0), start);
+    }
+
+    #[test]
+    fn a_widget_with_no_source_name_is_not_reported_as_missing() {
+        // An empty source is a blank widget, not a reading. Reporting it made the driver write the same
+        // "nothing provides it" line on every draw: 2,989,544 journal lines on one nine-day boot, 20 of them
+        // distinct. Neither a name nor a problem may come out of it.
+        let applet = applet(
+            r#"{"name": "blank", "sources": {}, "widgets": [
+                 {"type": "bar", "x": 0, "y": 0, "w": 20, "h": 5, "source": "", "max": 100},
+                 {"type": "text", "x": 0, "y": 8, "format": "no readings here"}]}"#,
+        );
+        assert!(names_read(&applet).is_empty(), "an empty source reads nothing");
+        assert!(
+            values_nothing_provides(&applet, &Values::new()).is_empty(),
+            "and nothing is reported missing for it"
+        );
     }
 
     #[test]

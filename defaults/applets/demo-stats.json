@@ -111,14 +111,7 @@
     },
     {
       "title": "screen 2",
-      "widgets": [
-        {
-          "type": "list",
-          "w": 100,
-          "x": 3,
-          "y": 8
-        }
-      ]
+      "widgets": []
     }
   ],
   "sources": {
