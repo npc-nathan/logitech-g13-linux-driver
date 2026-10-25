@@ -92,7 +92,10 @@ grep -q '^ExecStart=/usr/bin/g13 run$' "$DEB/usr/lib/systemd/user/g13-rs.service
 # this script does not know about stops the build, rather than shipping a package that installs and then cannot
 # start.
 SIZE=$(du -sk "$DEB" | cut -f1)
-DEPS=""
+# Packages, space separated and de-duplicated. Not comma separated: the dedupe test compares with the
+# separator in it, and ", " never matches ",pkg," - so three sonames mapping to libc6 each appended
+# their own entry and the control file said "libc6, libc6, libc6".
+DEPS_LIST=""
 for soname in $(readelf -d "$ROOT/target/release/g13" | sed -n 's/.*(NEEDED).*\[\(.*\)\]/\1/p'); do
     case "$soname" in
         libusb-1.0.so.0) PKG=libusb-1.0-0 ;;
@@ -107,9 +110,11 @@ for soname in $(readelf -d "$ROOT/target/release/g13" | sed -n 's/.*(NEEDED).*\[
             exit 1
             ;;
     esac
-    case ",$DEPS," in *",$PKG,"*) ;; *) DEPS="${DEPS:+$DEPS, }$PKG" ;; esac
+    case " $DEPS_LIST " in *" $PKG "*) ;; *) DEPS_LIST="${DEPS_LIST:+$DEPS_LIST }$PKG" ;; esac
 done
-[ -n "$DEPS" ] || { echo "packaging: the binary names no libraries at all, which cannot be right" >&2; exit 1; }
+[ -n "$DEPS_LIST" ] || { echo "packaging: the binary names no libraries at all, which cannot be right" >&2; exit 1; }
+# The control file wants ", " between them; the list above is space separated.
+DEPS=$(printf '%s\n' $DEPS_LIST | sed 's/$/,/' | tr -d '\n' | sed 's/,$//; s/,/, /g')
 cat > "$DEB/DEBIAN/control" <<EOF
 Package: $NAME
 Version: $VERSION
